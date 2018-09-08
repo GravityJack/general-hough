@@ -9,7 +9,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from collections import defaultdict
 from scipy.misc import imread
-from skimage.filter import canny
+from skimage.feature import canny
+
 from scipy.ndimage.filters import sobel
 
 # Good for the b/w test images used
@@ -53,7 +54,7 @@ def accumulate_gradients(r_table, grayImage):
     for (i,j),value in np.ndenumerate(edges):
         if value:
             for r in r_table[gradient[i,j]]:
-                accum_i, accum_j = i+r[0], j+r[1]
+                accum_i, accum_j = int(i+r[0]), int(j+r[1])
                 if accum_i < accumulator.shape[0] and accum_j < accumulator.shape[1]:
                     accumulator[accum_i, accum_j] += 1
                     
