@@ -26,7 +26,8 @@ def gradient_orientation(image):
     gradient = np.arctan2(dy,dx) * 180 / np.pi
     
     return gradient
-    
+
+
 def build_r_table(image, origin):
     '''
     Build the R-table from the given shape image and a reference point
@@ -41,6 +42,7 @@ def build_r_table(image, origin):
             r_table[gradient[i,j]].append((origin[0]-i, origin[1]-j))
 
     return r_table
+
 
 def accumulate_gradients(r_table, grayImage):
     '''
@@ -60,6 +62,7 @@ def accumulate_gradients(r_table, grayImage):
                     
     return accumulator
 
+
 def general_hough_closure(reference_image):
     '''
     Generator function to create a closure with the reference image and origin
@@ -75,6 +78,7 @@ def general_hough_closure(reference_image):
         
     return f
 
+
 def n_max(a, n):
     '''
     Return the N max elements and indices in a
@@ -82,6 +86,7 @@ def n_max(a, n):
     indices = a.ravel().argsort()[-n:]
     indices = (np.unravel_index(i, a.shape) for i in indices)
     return [(a[i], i) for i in indices]
+
 
 def test_general_hough(gh, reference_image, query):
     '''
@@ -125,6 +130,7 @@ def test_general_hough(gh, reference_image, query):
     
     return
 
+
 def test():
     reference_image = imread("../images/s.png", flatten=True)
     detect_s = general_hough_closure(reference_image)
@@ -139,6 +145,6 @@ def test():
     test_general_hough(detect_s, reference_image, "../images/diamond_test5.png")
     test_general_hough(detect_s, reference_image, "../images/diamond_test6.png")
 
+
 if __name__ == '__main__':
     test()
-    
